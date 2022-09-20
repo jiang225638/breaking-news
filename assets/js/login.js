@@ -1,5 +1,4 @@
 $(function() {
-    let rootUrl = 'http://www.liulongbin.top:3007'
     // 点击“去注册账号”的链接
     $('#link_reg').on('click',function() {
         $('.login-box').hide()
@@ -37,7 +36,7 @@ $(function() {
         console.log(regStr);
         $.ajax({
             method:'POST',
-            url:`${rootUrl}/api/reguser`,
+            url:`/api/reguser`,
             data:regStr,
             success:function(res) {
                 console.log(res);
@@ -53,7 +52,7 @@ $(function() {
     let regStr = $(this).serialize()
     $.ajax({
         method:'POST',
-        url:`${rootUrl}/api/login`,
+        url:`/api/login`,
         data:regStr,
         success:function(res) {
             console.log(res);

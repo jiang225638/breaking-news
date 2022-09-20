@@ -34,33 +34,33 @@ function getUserInfo() {
             if(res.status !== 0) layer.msg('获取用户信息失败！')
             renderAvatar(res.data)
         },
-        complete:function(res) {
-            console.log(res);
-            if(res.responseJSON.status === 1 || res.responseJSON.message === '身份认证失败！') {
-                // 1、强制清空token
-                localStorage.removeItem('token')
+        // complete:function(res) {
+        //         // console.log(res); 
+        //     if(res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+        //         // 1、强制清空token
+        //         localStorage.removeItem('token')
 
-                // 2、强制跳转到登录页
-                location.href = '/login.html'
-            }
-        }
+        //         // 2、强制跳转到登录页
+        //         location.href = '/login.html'
+        //     }
+        // }
        
     })
 }
 
 // 渲染用户头像
-function renderAvatar({id,nickname,user_pic,username}) {
+function renderAvatar(userinfo) {
 // 1、获取用户的名称
     // console.log(id,nickname,user_pic,username);
-    let name = nickname || username
+    let name = userinfo.nickname || userinfo.username
 // 2、设置欢迎的文本
-    $('#welcome').html(`欢迎&nbsp;&nbsp;${name}`)
+    $('#welcome').html(`欢迎&nbsp;&nbsp;${userinfo.name}`)
 // 3、渲染用户头像
-    if(user_pic !== null) {
-        $('.layui-nav-img').attr('src',user_pic).show()
+    if(userinfo.user_pic !== null) {
+        $('.layui-nav-img').attr('src',userinfo.user_pic).show()
         $('.text_avatar').hide()
     }else {
-        let first = username[0].toUpperCase()
+        let first = userinfo.username[0].toUpperCase()
         $('.text_avatar').html(first).show()
         $('.layui-nav-img').hide()
     }
